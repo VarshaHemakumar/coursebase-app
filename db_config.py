@@ -29,7 +29,7 @@ from urllib.parse import urlparse
 import os
 from sqlalchemy import create_engine
 
-def get_engine():
+def get_connection():
     """
     Returns a SQLAlchemy engine using the DATABASE_URL from environment variables.
     This is used for safe and efficient database access, especially with pandas.
