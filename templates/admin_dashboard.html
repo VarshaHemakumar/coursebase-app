@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-white mb-4">Admin Dashboard</h2>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <a href="{{ url_for('manage_students') }}" class="btn btn-outline-light btn-lg w-100 shadow">Manage Students</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('admin_view_courses') }}" class="btn btn-outline-light btn-lg w-100 shadow">Manage Courses</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('admin_view_enrollments') }}" class="btn btn-outline-light btn-lg w-100 shadow">Manage Enrollments</a>
+        </div>
+        
+        <div class="col-md-6">
+            <a href="{{ url_for('admin_view_attendance') }}" class="btn btn-outline-light btn-lg w-100 shadow">View Attendance</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('admin_recommend_input') }}" class="btn btn-outline-light btn-lg w-100 shadow">View Recommendations </a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('analytics_dashboard') }}" class="btn btn-outline-light btn-lg w-100 shadow">Data Analytics</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('insights') }}" class="btn btn-outline-light btn-lg w-100 shadow">Complex Insights</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('logout') }}" class="btn btn-danger btn-lg w-100 shadow">Logout</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

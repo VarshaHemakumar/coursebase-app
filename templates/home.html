@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Main Title -->
+<div style="text-align: center; margin-top: 50px;">
+    <h1 style="
+        font-size: 3.2rem;
+        color: #00d4ff;
+        font-weight: 800;
+        text-shadow: 2px 2px 5px #000;
+        margin-bottom: 10px;
+    ">
+        Optimized CourseBase
+    </h1>
+    <h2 style="
+        font-size: 1.8rem;
+        color: #ffffff;
+        font-weight: 400;
+        margin-bottom: 20px;
+        letter-spacing: 0.5px;
+    ">
+        Smarter Models, Faster Queries
+    </h2>
+    <p style="
+        font-size: 1.1rem;
+        color: #ccc;
+        max-width: 800px;
+        margin: auto;
+        line-height: 1.6;
+    ">
+        Personalized AI-powered course recommendations and academic insights. This platform empowers administrators and students with a smart, responsive interface to manage enrollments, track performance, and discover optimized learning paths.
+    </p>
+</div>
+
+<!-- Trending Courses Header -->
+{% if trending_courses %}
+    <div style="margin-top: 60px;">
+        <h3 style="
+            text-align: center;
+            color: #f5f5f5;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px #000;
+        ">
+             Trending Courses This Semester
+        </h3>
+
+        <div style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 20px;
+        ">
+            {% for course in trending_courses %}
+                <div style="
+                    background-color: #1e1e1e;
+                    border: 1px solid #333;
+                    border-radius: 12px;
+                    padding: 20px;
+                    width: 280px;
+                    color: #fff;
+                    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+                    transition: transform 0.2s ease-in-out;
+                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    <h4 style="color: #00ffcc; font-weight: 600;">{{ course[0] }}</h4>
+                    <p style="margin-top: 10px; font-size: 0.95rem; color: #bbb;">
+                        Average Rating: <strong style="color: #f9d342;">{{ course[1] }}</strong>
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

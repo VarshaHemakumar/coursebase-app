@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card bg-dark text-white shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">{{ action }} Student</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="student_id" class="form-label">Student ID</label>
+                    <input type="number" class="form-control" name="student_id" required
+                           value="{{ student[0] if student else '' }}"
+                           {% if action == 'Edit' %}readonly{% endif %}>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" required
+                           value="{{ student[1] if student else '' }}">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" required
+                           value="{{ student[2] if student else '' }}">
+                </div>
+                <div class="mb-3">
+                    <label for="department" class="form-label">Department</label>
+                    <input type="text" class="form-control" name="department" required
+                           value="{{ student[3] if student else '' }}">
+                </div>
+                <button type="submit" class="btn btn-primary">{{ action }} Student</button>
+                <a href="{{ url_for('manage_students') }}" class="btn btn-secondary ms-2">← Back to Students</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

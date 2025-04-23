@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2 class="text-center">All Student Attendance Records</h2>
+
+<form method="POST" class="mb-4" style="max-width: 400px; margin: auto;">
+    <div class="input-group">
+        <select name="student_id" class="form-select">
+            <option value="">-- Select a Student --</option>
+            {% for sid, name in students %}
+                <option value="{{ sid }}" {% if sid == selected_id|int %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+<table class="table table-dark table-striped mt-4 text-center">
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Course</th>
+            <th>Session Time</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in attendance %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

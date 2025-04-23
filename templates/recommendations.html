@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-success mb-4">Recommended Courses for You</h2>
+    
+    <div class="table-responsive">
+        <table class="table table-dark table-striped table-bordered shadow">
+            <thead class="thead-light">
+                <tr class="text-center">
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Predicted Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in recommendations %}
+                <tr class="text-center">
+                    <td>{{ course[0] }}</td>
+                    <td>{{ course[1] }}</td>
+                    <td>{{ "%.2f"|format(course[2]) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

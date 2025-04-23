@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2 class="text-center">{{ action }} Course</h2>
+
+<form method="POST" class="mt-4" style="max-width: 500px; margin: auto;">
+    <div class="mb-3">
+        <label class="form-label">Course Name</label>
+        <input type="text" name="course_name" class="form-control" required value="{{ course[1] if course else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Department</label>
+        <input type="text" name="department" class="form-control" required value="{{ course[2] if course else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Credits</label>
+        <input type="number" name="credits" class="form-control" min="1" required value="{{ course[3] if course else '3' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Difficulty Level</label>
+        <input type="text" name="difficulty_level" class="form-control" required value="{{ course[4] if course else '' }}">
+    </div>
+
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary">{{ action }} Course</button>
+    </div>
+</form>
+
+<div class="text-center mt-3">
+    <a href="{{ url_for('admin_view_courses') }}" class="btn btn-secondary">⬅ Back to Courses</a>
+</div>
+{% endblock %}
