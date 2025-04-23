@@ -73,11 +73,11 @@ def student_dashboard():
 
         student_id = session.get('student_id')
 
-        # Fetch student details
+    
         cursor.execute("SELECT * FROM students WHERE student_id = %s", (student_id,))
         student = cursor.fetchone()
 
-        # Fetch trending courses
+     
         cursor.execute("""
             SELECT c.course_name, ROUND(AVG(r.rating_score), 2) AS avg_rating
             FROM courses c
@@ -120,7 +120,7 @@ def login():
                 session['email'] = user[1]
                 session['role'] = user[2]
 
-                # Fetch student_id if user is a student
+               
                 if session['role'] == 'student':
                     cursor.execute("SELECT student_id FROM students WHERE email = %s", (email,))
                     student = cursor.fetchone()
@@ -237,13 +237,12 @@ def admin_view_attendance():
         conn = get_connection()
         cursor = conn.cursor()
 
-        # Fetch student options
+   
         cursor.execute("SELECT student_id, name FROM students")
         student_list = cursor.fetchall()
 
         selected_id = request.form.get('student_id') if request.method == 'POST' else None
 
-        # Fetch attendance data (filtered if selected)
         if selected_id:
             cursor.execute("""
                 SELECT s.student_id, s.name, c.course_name, se.session_time, ad.attendance_status
@@ -324,23 +323,24 @@ def insights():
 
 
 
-# @app.route('/courses')
-# @login_required()
-# def view_courses():
-#     try:
-#         conn = get_connection()
-#         cursor = conn.cursor()
-#         cursor.execute("SELECT * FROM courses ORDER BY course_id")
-#         courses = cursor.fetchall()
-#     except Exception as e:
-#         flash(f"Error fetching courses: {str(e)}", "danger")
-#         courses = []
-#     finally:
-#         if conn: conn.close()
+@app.route("/admin/generate_recommendations")
+def generate_all_recommendations():
+    conn = get_connection()
+    cursor = conn.cursor()
+    student_ids = pd.read_sql("SELECT DISTINCT student_id FROM ratings", conn)['student_id']
 
-#     return render_template('courses.html', courses=courses, is_admin=(session.get('role') == 'admin'))
+    for sid in student_ids:
+        recs = get_recommendations_for(sid)
+        for course_id, course_name, score in recs:
+            cursor.execute(
+                "INSERT INTO recommendations (student_id, course_id, score, source) VALUES (%s, %s, %s, %s) ON CONFLICT DO NOTHING",
+                (sid, course_id, score, 'hybrid')
+            )
+    conn.commit()
+    conn.close()
+    return "All recommendations generated!"
 
-# Enrollments CRUD
+
 
 @app.route('/admin/enrollments')
 @login_required(role='admin')
@@ -377,7 +377,7 @@ def add_enrollment():
         conn = get_connection()
         cursor = conn.cursor()
 
-        # Fetch dropdown data
+     
         cursor.execute("SELECT student_id, name FROM students")
         students = cursor.fetchall()
         cursor.execute("SELECT course_id, course_name FROM courses")
@@ -388,14 +388,14 @@ def add_enrollment():
             course_id = request.form['course_id']
             semester = request.form['semester']
 
-            # Add to student_course if not already present
+           
             cursor.execute("""
                 INSERT INTO student_course (student_id, course_id)
                 VALUES (%s, %s)
                 ON CONFLICT DO NOTHING
             """, (student_id, course_id))
 
-            # Add to enrollment_details
+          
             cursor.execute("""
                 INSERT INTO enrollment_details (student_id, course_id, semester)
                 VALUES (%s, %s, %s)
@@ -453,7 +453,6 @@ def admin_view_courses():
     return render_template('admin_courses.html', courses=courses)
 
 
-# Courses CRUD
 
 
 @app.route('/home')
@@ -482,23 +481,7 @@ def home():
 
 
 
-# ADMIN: View All Courses
-# @app.route('/admin/courses')
-# @login_required(role='admin')
-# def admin_view_courses():
-#     try:
-#         conn = get_connection()
-#         cursor = conn.cursor()
-#         cursor.execute("SELECT * FROM courses ORDER BY course_id ASC")
-#         courses = cursor.fetchall()
-#         return render_template('courses.html', courses=courses)
-#     except Exception as e:
-#         flash(f"Failed to fetch courses: {str(e)}", "danger")
-#         return redirect(url_for('admin_dashboard'))
-#     finally:
-#         if conn: conn.close()
 
-# STUDENT: Browse Courses
 @app.route('/student/courses')
 @login_required(role='student')
 def student_view_courses():
@@ -528,12 +511,12 @@ def add_course():
             conn = get_connection()
             cursor = conn.cursor()
 
-            # Manually compute next course_id
+            
             cursor.execute("SELECT MAX(course_id) FROM courses")
             max_id = cursor.fetchone()[0]
             next_course_id = 1 if max_id is None else max_id + 1
 
-            # Now insert with manually generated course_id
+         
             cursor.execute("""
                 INSERT INTO courses (course_id, course_name, department, credits, difficulty_level)
                 VALUES (%s, %s, %s, %s, %s)
@@ -541,7 +524,7 @@ def add_course():
 
             conn.commit()
             flash("Course added successfully!", "success")
-            return redirect(url_for('admin_view_courses'))  # make sure this matches your route name
+            return redirect(url_for('admin_view_courses'))  
         except Exception as e:
             flash(f"Failed to add course: {str(e)}", "danger")
         finally:
@@ -663,7 +646,7 @@ def student_enrollments():
         """, (session['student_id'],))
         
         enrollments = cursor.fetchall()
-        print("DEBUG: Enrollments fetched:", enrollments)  # 🧪 Debug line
+        print("DEBUG: Enrollments fetched:", enrollments) 
 
         if not enrollments:
             flash("No enrollments found for your account.", "info")
@@ -740,7 +723,7 @@ def admin_recommend_input():
         conn = get_connection()
         cursor = conn.cursor()
 
-        # Get all students for dropdown
+       
         cursor.execute("SELECT student_id, name FROM students")
         students = cursor.fetchall()
 
@@ -752,7 +735,7 @@ def admin_recommend_input():
             selected_id = int(request.form.get('student_id'))
 
         if selected_id:
-            # Get enrolled course names
+            
             cursor.execute("""
                 SELECT c.course_name
                 FROM enrollment_details ed
@@ -761,7 +744,7 @@ def admin_recommend_input():
             """, (selected_id,))
             enrolled = [row[0] for row in cursor.fetchall()]
 
-            # Get recommendations
+      
             from utils.recommender import get_recommendations_for
             recommendations = get_recommendations_for(selected_id)
 
