@@ -1,14 +1,16 @@
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-from db_config import get_connection
+# from db_config import get_connection
+
+from db_config import get_engine
 
 
 
 def get_recommendations_for(student_id):
-    conn = get_connection()
+    engine = get_engine()
+    ratings_df = pd.read_sql("SELECT * FROM ratings", engine)
 
-    ratings_df = pd.read_sql("SELECT * FROM ratings", conn)
     course_df = pd.read_sql("SELECT course_id, credits, difficulty_level FROM courses", conn)
 
     enrollment_query = "SELECT course_id FROM enrollment_details WHERE student_id = %s"
