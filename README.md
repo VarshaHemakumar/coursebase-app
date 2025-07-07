@@ -3,8 +3,6 @@
 > *Independently developed by [Your Name]*  
 > **Deployed Full-Stack | AI-Powered Recommendations | Real-Time Analytics**
 
- [View Tableau Dashboard](https://public.tableau.com/app/profile/varsha.hemakumar7273/viz/AnalyticsDashboard17457002522590/Dashboard1?publish=yes)
-
 ---
 
 ##  Overview
@@ -73,7 +71,7 @@ Includes:
 - Hybrid vs Fallback Recommendation Sources  
 - Bubble chart comparing difficulty vs satisfaction  
 
-🔗 [Live Dashboard Access](https://public.tableau.com/app/profile/varsha.hemakumar7273/viz/AnalyticsDashboard17457002522590/Dashboard1?publish=yes)
+ [Live Dashboard Access](https://public.tableau.com/app/profile/varsha.hemakumar7273/viz/AnalyticsDashboard17457002522590/Dashboard1?publish=yes)
 
 ---
 
@@ -107,3 +105,39 @@ Includes:
 - Deletion logs for traceability
 
 ---
+##  Data Architecture
+
+### ER Diagram for Course Management System
+
+<img width="469" alt="Screenshot 2025-07-07 at 12 43 26 PM" src="https://github.com/user-attachments/assets/c517bf1d-bbb8-428b-8862-1e4007c8559b" />
+
+> This Entity-Relationship (ER) diagram outlines the high-level structure of the Course Management System, highlighting key relationships between students, courses, instructors, and enrollment records.
+
+---
+
+###  Final Schema After Decomposition (BCNF)
+
+<img width="338" alt="Screenshot 2025-07-07 at 12 43 58 PM" src="https://github.com/user-attachments/assets/80cc1817-8800-421a-b9e6-3d0096fa889f" />
+
+> The schema was normalized to **Boyce-Codd Normal Form (BCNF)** to eliminate redundancy and maintain referential integrity. This decomposition forms the foundation for reliable querying and constraint enforcement in PostgreSQL.
+
+---
+
+##  Tableau Analytics Dashboard
+
+You can explore the real-time visual analytics used in this project — including course trends, top-rated modules, and hybrid recommendation sources — via the interactive dashboard below:
+
+ [**View Tableau Dashboard**](https://public.tableau.com/app/profile/varsha.hemakumar7273/viz/AnalyticsDashboard_17457002522590/Dashboard1)
+
+---
+
+##  Application Preview
+
+<img width="1460" alt="Screenshot 2025-07-07 at 12 49 22 PM" src="https://github.com/user-attachments/assets/07a5a9cf-dc1e-4ee3-9e06-555ee84f9d81" />
+
+> The web interface provides access to enrollment, attendance, and AI-powered recommendations through separate admin and student logins. Built using Flask and PostgreSQL, this interface demonstrates the full-stack functionality of CourseBase.
+
+---
+
+
+
