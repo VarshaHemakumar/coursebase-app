@@ -93,7 +93,8 @@ Includes:
 - Fully normalized schema and scalable relational model  
 - Real-world recommendation engine with hybrid architecture  
 - Intuitive dashboards for real-time insights  
-- End-to-end production-grade implementation — **everything built and deployed independently by me**
+- End-to-end production-grade implementation 
+- **This application was entirely designed, developed, and deployed by me — from backend architecture to frontend design and AI integration.**
 
 ---
 
