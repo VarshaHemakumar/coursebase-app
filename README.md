@@ -71,7 +71,7 @@ Includes:
 - Hybrid vs Fallback Recommendation Sources  
 - Bubble chart comparing difficulty vs satisfaction  
 
- [Live Dashboard Access](https://public.tableau.com/app/profile/varsha.hemakumar7273/viz/AnalyticsDashboard17457002522590/Dashboard1?publish=yes)
+ [**View Tableau Dashboard**](https://public.tableau.com/app/profile/varsha.hemakumar7273/viz/AnalyticsDashboard_17457002522590/Dashboard1)
 
 ---
 
