@@ -1,6 +1,5 @@
 # CourseBase: AI-Powered Course Management & Recommendation System
 
-> *Independently developed by [Your Name]*  
 > **Deployed Full-Stack | AI-Powered Recommendations | Real-Time Analytics**
 
 ---
